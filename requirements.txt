@@ -1,0 +1,5 @@
+discord==1.7.3
+firebase-admin==5.2.0
+Pillow==9.0.1
+wget==3.2
+pytz==2022.1
