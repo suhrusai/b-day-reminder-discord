@@ -210,7 +210,7 @@ async def TodayBday():
     daily_sent_messages = [i.id for i in daily_sent_messages]
     open(r"daily_sent_messages.json",
          "w").write(json.dumps(daily_sent_messages))
-    exit()
+    
 
 
 @TodayBday.before_loop
