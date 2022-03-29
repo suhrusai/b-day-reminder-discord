@@ -101,7 +101,7 @@ async def LogPrint(ActionToBeLogged):
 async def deletemessages(a):
 
         message_channel = bot.get_channel(target_channel_id)
-        print(a)
+        print("Messages to be Deleted:",a)
         for msg_id in a:
             try:
                 print("Delete Messages Invoked")
