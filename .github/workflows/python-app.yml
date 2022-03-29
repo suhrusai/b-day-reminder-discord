@@ -29,7 +29,7 @@ jobs:
           if (Test-Path $FileName) {
             Remove-Item $FileName
           }
-          "Last Run at " + $(get-date) + " UTC" > Readme.md
+          "Last Run at ``" + $(get-date) + "`` UTC" > Readme.md
       - name: action-push-local-changes to Master
         uses: reloc8/action-push-local-changes@1.0.0
         with:
