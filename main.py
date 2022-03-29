@@ -84,7 +84,7 @@ message_channel = None
 
 async def LogPrint(ActionToBeLogged):
     today = datetime.now(pytz.timezone('Asia/Kolkata'))
-    baseDirectory = "Logs/"
+    baseDirectory = ""
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
     log_channel = bot.get_channel(876070119867031592)
@@ -125,7 +125,7 @@ async def TodayBday():
             json.loads(open(r"daily_sent_messages.json", "r").read()))
     except:
         await LogPrint('deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))')
-    if (today.strftime("%d") == "30"):
+    if (today.strftime("%d") == "01"):
         try:
             await deletemessages(
                 json.loads(open(r"montly_birthday_messages.json", "r").read()))
