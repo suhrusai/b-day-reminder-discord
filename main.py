@@ -96,8 +96,6 @@ async def LogPrint(ActionToBeLogged):
     except:
         pass
 
-
-@tasks.loop(hours=24)
 async def deletemessages(a):
 
         message_channel = bot.get_channel(target_channel_id)
