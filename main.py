@@ -99,13 +99,17 @@ async def LogPrint(ActionToBeLogged):
 
 @tasks.loop(hours=24)
 async def deletemessages(a):
-    message_channel = bot.get_channel(target_channel_id)
-    for msg_id in a:
-        print("Delete Messages Invoked")
+    try:
+        message_channel = bot.get_channel(target_channel_id)
         print(a)
-        msg = await message_channel.fetch_message(msg_id)
-        await msg.delete()
+        for msg_id in a:
+            print("Delete Messages Invoked")
 
+            msg = await message_channel.fetch_message(msg_id)
+            await msg.delete()
+    except Exception as e:
+        print(e.message)
+        
 
 @tasks.loop(minutes=30)
 async def TodayBday():
