@@ -127,7 +127,6 @@ async def deletemessages(a):
 @tasks.loop(minutes=30)
 async def TodayBday():
 	today = datetime.now(pytz.timezone('Asia/Kolkata'))
-    deletemessages()
 	"""
         First part of the below code generates the monthly bdays
         Second part sends notification in case of birthday 
