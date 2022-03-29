@@ -20,4 +20,11 @@ jobs:
         uses: logikal-code/pip-install@v1.0.0
       - name: Run Python Program
         run:  python main.py
+      - name: action-push-local-changes
+  # You may pin to the exact commit or the version.
+  # uses: reloc8/action-push-local-changes@db6ff4a3eac620530c970af02229a260240aa8aa
+        uses: reloc8/action-push-local-changes@1.0.0
+        with:
+          commit-message: Daily_messgaes.json changed
+        
   
