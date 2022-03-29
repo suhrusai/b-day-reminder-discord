@@ -108,7 +108,7 @@ async def deletemessages(a):
             msg = await message_channel.fetch_message(msg_id)
             await msg.delete()
     except Exception as e:
-        print(e.message)
+        print("Exception Raised",e.message)
         
 
 @tasks.loop(minutes=30)
