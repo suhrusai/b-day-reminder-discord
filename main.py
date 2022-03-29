@@ -33,7 +33,7 @@ import asyncio
 Testing_channel_id=831911965643112489
 Main Channel id=831833834671702086
 """
-target_channel_id = 831935935255543828
+target_channel_id = 958460165533859900
 """
 Iitilizing Firebase Credentials and getting the database information
 Also Setting up discord Bot
