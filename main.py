@@ -121,7 +121,7 @@ async def TodayBday():
             json.loads(open(r"daily_sent_messages.json", "r").read()))
     except:
         await LogPrint('deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))')
-    if (today.strftime("%d") == "01"):
+    if (today.strftime("%d") == "30"):
         try:
             await deletemessages(
                 json.loads(open(r"montly_birthday_messages.json", "r").read()))
@@ -210,7 +210,7 @@ async def TodayBday():
     daily_sent_messages = [i.id for i in daily_sent_messages]
     open(r"daily_sent_messages.json",
          "w").write(json.dumps(daily_sent_messages))
-    
+    exit()
 
 
 @TodayBday.before_loop
