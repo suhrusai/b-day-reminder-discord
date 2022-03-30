@@ -114,7 +114,7 @@ async def TodayBday():
             json.loads(open(r"daily_sent_messages.json", "r").read()))
     except:
         await LogPrint('deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))')
-    if (today.strftime("%d") == "01" or True):
+    if (today.strftime("%d") == "01"):
         try:
             await deletemessages(
                 json.loads(open(r"montly_birthday_messages.json", "r").read()))
@@ -174,13 +174,7 @@ async def TodayBday():
         # print(value["DOB"])
         # print(today.strftime("%d-%m"),value["DOB"][0:5])
 
-        if (today.strftime("%d-%m") == value["DOB"][0:5] or True):
-            if (not (image_printed)):
-                url = bday_wish_pic
-                download_image(url)
-                daily_sent_messages.append(
-                    await message_channel.send(file=discord.File("temp.png")))
-                image_printed = True
+        if (today.strftime("%d-%m") == value["DOB"][0:5]):
             age = int(today.strftime("%Y")) - int(value['DOB'][-4:])
             agestring = ""
             if (age % 10 == 1):
