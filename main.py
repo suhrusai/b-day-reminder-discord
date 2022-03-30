@@ -114,7 +114,7 @@ async def TodayBday():
             json.loads(open(r"daily_sent_messages.json", "r").read()))
     except:
         await LogPrint('deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))')
-    if (today.strftime("%d") == "01"):
+    if (today.strftime("%d") == "01" or True):
         try:
             await deletemessages(
                 json.loads(open(r"montly_birthday_messages.json", "r").read()))
