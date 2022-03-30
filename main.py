@@ -59,7 +59,7 @@ firebase_admin.initialize_app(cred, {
 })
 ref = db.reference('birthday-reminder-bb6f8-default-rtdb')
 
-today = datetime.now(pytz.timezone('Asia/Kolkata'))
+today = datetime.now(pytz.timezone('Asia/Katmandu'))
 
 ref = db.reference("/")
 bdays = ref.get()
@@ -83,14 +83,14 @@ message_channel = None
 
 
 async def LogPrint(ActionToBeLogged):
-    today = datetime.now(pytz.timezone('Asia/Kolkata'))
+    today = datetime.now(pytz.timezone('Asia/Katmandu'))
     baseDirectory = ""
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
     log_channel = bot.get_channel(876070119867031592)
     # await log_channel.send(LogStatement)
     try:
-        f = open(baseDirectory + today.strftime('%m-%y'), "a+")
+        f = open(baseDirectory + today.strftime('%d-%m-%y'), "a+")
         f.write(LogStatement)
         f.close()
     except:
@@ -112,7 +112,7 @@ async def deletemessages(a):
 
 @tasks.loop(minutes=30)
 async def TodayBday():
-    today = datetime.now(pytz.timezone('Asia/Kolkata'))
+    today = datetime.now(pytz.timezone('Asia/Katmandu'))
     """
         First part of the below code generates the monthly bdays
         Second part sends notification in case of birthday 
