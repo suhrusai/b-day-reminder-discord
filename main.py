@@ -1,34 +1,21 @@
-from datetime import timedelta
-from datetime import time
+import random
 from discord.ext import commands, tasks
 import requests
-from requests.packages import urllib3
-import requests
-from requests.packages import urllib3
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import datetime
-from PIL import Image
-import shutil
 from discord.ext import commands, tasks
-from requests.packages import urllib3
-from requests.packages import urllib3
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import datetime
-from PIL import Image
-import shutil
-import wget
 import requests
-import re
 import discord
-import os
 import json
 from datetime import datetime
 import pytz
-import asyncio
+
 """
 Testing_channel_id=831911965643112489
 Main Channel id=831833834671702086
@@ -58,8 +45,10 @@ firebase_admin.initialize_app(cred, {
     'storageBucket': 'gs://birthday-reminder-bb6f8.appspot.com'
 })
 ref = db.reference('birthday-reminder-bb6f8-default-rtdb')
-
-today = datetime.now(pytz.timezone('Asia/Katmandu'))
+embed_colors = [0xff31ba,  0xb7f205, 0x00f2d6, 0xf1c40f]
+random.shuffle(embed_colors)
+timezone = 'Asia/Katmandu'
+today = datetime.now(pytz.timezone(timezone))
 
 ref = db.reference("/")
 bdays = ref.get()
@@ -83,7 +72,7 @@ message_channel = None
 
 
 async def LogPrint(ActionToBeLogged):
-    today = datetime.now(pytz.timezone('Asia/Katmandu'))
+    today = datetime.now(pytz.timezone(timezone))
     baseDirectory = ""
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
@@ -96,23 +85,23 @@ async def LogPrint(ActionToBeLogged):
     except:
         pass
 
+
 async def deletemessages(a):
 
-        message_channel = bot.get_channel(target_channel_id)
-        print("Messages to be Deleted:",a)
-        for msg_id in a:
-            try:
-                print("Delete Messages Invoked")
-                msg = await message_channel.fetch_message(msg_id)
-                await msg.delete()
-            except Exception as e:
-                print("Exception Raised",e.message)
-                
-        
+    message_channel = bot.get_channel(target_channel_id)
+    print("Messages to be Deleted:", a)
+    for msg_id in a:
+        try:
+            print("Delete Messages Invoked")
+            msg = await message_channel.fetch_message(msg_id)
+            await msg.delete()
+        except Exception as e:
+            print("Exception Raised", e.message)
+
 
 @tasks.loop(minutes=30)
 async def TodayBday():
-    today = datetime.now(pytz.timezone('Asia/Katmandu'))
+    today = datetime.now(pytz.timezone(timezone))
     """
         First part of the below code generates the monthly bdays
         Second part sends notification in case of birthday 
@@ -125,7 +114,7 @@ async def TodayBday():
             json.loads(open(r"daily_sent_messages.json", "r").read()))
     except:
         await LogPrint('deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))')
-    if (today.strftime("%d") == "01"):
+    if (today.strftime("%d") == "01" or True):
         try:
             await deletemessages(
                 json.loads(open(r"montly_birthday_messages.json", "r").read()))
@@ -145,33 +134,47 @@ async def TodayBday():
         download_image(url)
         monthly_birthday_messages.append(
             await message_channel.send(file=discord.File("temp.png")))
+        i = 0
         for value in temparray:
+            name = value["Name"]
+            dob = value["DOB"]
+            age = int(today.strftime("%Y")) - int(value['DOB'][-4:])
+            color = embed_colors[i % (len(embed_colors))]
+            embed = discord.Embed(
+                color=color)
+            embed.add_field(
+                name="Name", value="{}".format(name), inline=False)
+            embed.add_field(name="Date of Birth",
+                            value="{}".format(dob))
+            embed.add_field(
+                name="Age(To be)", value="{} Years".format(age), inline=True)
+            embed.set_footer(
+                text="{}({}).  Developed by Sai Suhrut".format(today.strftime(" %d/%m/%Y, %H:%M:%S"), timezone))
             if int(today.strftime("%m")) == int(value["DOB"][3:5]):
                 try:
                     url = value['Image']
                     download_image(url)
                     monthly_birthday_messages.append(
                         await message_channel.send(
-                            "**Name: " + value["Name"] + "**\n" + "**DOB: " +
-                            value["DOB"] + "**",
-                            file=discord.File("temp.png")))
+                            file=discord.File("temp.png"), embed=embed))
                 except:
                     print(value)
                     monthly_birthday_messages.append(
-                        await message_channel.send("**Name: " + value["Name"] +
-                                                   "**\n" + "**DOB: " +
-                                                   value["DOB"] + "**"))
+                        await message_channel.send(embed=embed))
                 await LogPrint("BDAY BOT (This months bday): " + str(value))
+            i += 1
         monthly_birthday_messages = [i.id for i in monthly_birthday_messages]
         open(r"montly_birthday_messages.json",
              "w").write(json.dumps(monthly_birthday_messages))
     message_channel = bot.get_channel(target_channel_id)
     image_printed = False
+    i = 0
     print(f"Got channel {message_channel}")
     for key, value in bdays.items():
         # print(value["DOB"])
         # print(today.strftime("%d-%m"),value["DOB"][0:5])
-        if (today.strftime("%d-%m") == value["DOB"][0:5]):
+
+        if (today.strftime("%d-%m") == value["DOB"][0:5] or True):
             if (not (image_printed)):
                 url = bday_wish_pic
                 download_image(url)
@@ -190,27 +193,40 @@ async def TodayBday():
                 agestring = " th "
             elif (age):
                 agestring = "th "
+            name = value["Name"]
+            dob = value["DOB"]
+            color = embed_colors[i % len(embed_colors)]
             gender_string = " on her " if value["Gender"] == "F" else " on his "
+            embed = discord.Embed(
+                title="Wish {}{}{}{} Birthday🎂".format(name, gender_string, age, agestring), color=color)
+            embed.add_field(
+                name="Name", value="{}".format(name), inline=False)
+            embed.add_field(name="Date of Birth",
+                            value="{}".format(dob))
+            embed.add_field(
+                name="Age", value="{} Years".format(age), inline=True)
+            embed.set_footer(
+                text="{}({}).  Developed by Sai Suhrut".format(today.strftime(" %m/%d/%Y, %H:%M:%S"), timezone))
+            embed.set_thumbnail(
+                url="https://jooinn.com/images/birthday-cake-clipart.jpg")
             try:
                 url = value['Image']
                 download_image(url)
-                daily_sent_messages.append(await message_channel.send(
-                    '**Wish ' + value["Name"] + gender_string + str(age) +
-                    agestring + "Birthday🎂✨🎉🎂✨🎉🎁🎁**\n",
-                    file=discord.File("temp.png")))
+                daily_sent_messages.append(await message_channel.send(file=discord.File("temp.png"), embed=embed))
                 await LogPrint("BDAY BOT (Today's Bday): " + "Key: " +
                                str(key) + "Value : " + str(value))
-            except:
+            except Exception as e:
+                print("Exception :", e)
                 daily_sent_messages.append(
                     await
-                    message_channel.send('**Wish ' + value["Name"] +
-                                         gender_string + str(age) + agestring +
-                                         "Birthday🎂✨🎉🎂✨🎉🎁🎁**\n"))
+                    message_channel.send(embed=embed),)
                 await LogPrint("BDAY BOT (Today's Bday): " + "Key: " +
                                str(key) + "Value : " + str(value))
             finally:
                 pass
-
+        if(i == len(embed_colors) - 1):
+            break
+        i += 1
     daily_sent_messages = [i.id for i in daily_sent_messages]
     open(r"daily_sent_messages.json",
          "w").write(json.dumps(daily_sent_messages))
