@@ -170,11 +170,9 @@ async def TodayBday():
     image_printed = False
     i = 0
     print(f"Got channel {message_channel}")
-    print(bdays)
     for key, value in bdays.items():
         # print(value["DOB"])
         # print(today.strftime("%d-%m"),value["DOB"][0:5])
-        print(key, value)
         if (today.strftime("%d-%m") == value["DOB"][0:5]):
             age = int(today.strftime("%Y")) - int(value['DOB'][-4:])
             agestring = ""
