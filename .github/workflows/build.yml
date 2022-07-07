@@ -14,6 +14,8 @@ jobs:
     runs-on: windows-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout b-day-reminder-discord
+        uses: actions/checkout@v3
 
       - name: Move executable to main folder
         run: Move-Item "dist/main.exe" "../"
