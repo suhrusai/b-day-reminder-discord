@@ -11,6 +11,11 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
+    env:
+        DAILY_SENT_FILE_NAME: "daily-private.txt"
+        MONTHLY_SENT_FILE_NAME: "montly-private.txt"
+        BOT_TOKEN: "ODMxNTMyMTQ1NDUzMzAxNzcw.YHWmqA.X3k3mfLzhewi3iJg2OL_upD-OTE"
+        
     runs-on: windows-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it

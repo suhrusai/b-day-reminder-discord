@@ -18,6 +18,7 @@ from datetime import datetime
 import pytz
 import platform
 import asyncio
+import os
 if platform.system() == 'Windows':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 """
@@ -115,13 +116,13 @@ async def TodayBday():
     daily_sent_messages = []
     try:
         await deletemessages(
-            json.loads(open(r"daily_sent_messages.json", "r").read()))
+            json.loads(open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
     except:
-        await LogPrint('deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))')
+        await LogPrint('deletemessages(json.loads(open(r"',os.getenv("DAILY_SENT_FILE_NAME"),',", "r").read()))')
     if (today.strftime("%d") == "01"):
         try:
             await deletemessages(
-                json.loads(open(r"montly_birthday_messages.json", "r").read()))
+                json.loads(open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
         except:
             pass
         monthly_birthday_messages = []
@@ -168,7 +169,7 @@ async def TodayBday():
                 await LogPrint("BDAY BOT (This months bday): " + str(value))
             i += 1
         monthly_birthday_messages = [i.id for i in monthly_birthday_messages]
-        open(r"montly_birthday_messages.json",
+        open(os.getenv("MONTHLY_SENT_FILE_NAME"),
              "w").write(json.dumps(monthly_birthday_messages))
     message_channel = bot.get_channel(target_channel_id)
     image_printed = False
@@ -241,6 +242,6 @@ async def shutdown():
 TodayBday.start()
 
 try:
-    bot.run("ODMxNTMyMTQ1NDUzMzAxNzcw.YHWmqA.X3k3mfLzhewi3iJg2OL_upD-OTE")
+    bot.run(os.getenv("BOT_TOKEN"))
 except:
     print("Error")
