@@ -30,3 +30,5 @@ jobs:
         uses: reloc8/action-push-local-changes@1.0.0
         with:
           commit-message: Build changed
+      - name: Running the program
+        run: main.exe
