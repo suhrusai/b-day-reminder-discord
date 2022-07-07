@@ -19,8 +19,8 @@ jobs:
         DATABASE_URL: "https://birthday-reminder-bb6f8-default-rtdb.europe-west1.firebasedatabase.app/"
         STORAGE_BUCKET: "gs://birthday-reminder-bb6f8.appspot.com"
         DB_REFERENCE: "birthday-reminder-bb6f8-default-rtdb"
-        LOG_CHANNEL_ID: 876070119867031592
-        TARGET_CHANNEL: 958460165533859900
+        LOG_CHANNEL_ID: "876070119867031592"
+        TARGET_CHANNEL: "958460165533859900"
         
     runs-on: windows-latest
     steps:
