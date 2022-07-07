@@ -1,3 +1,4 @@
+from asyncio import Task
 import random
 from discord.ext import commands, tasks
 import requests
@@ -15,7 +16,10 @@ import discord
 import json
 from datetime import datetime
 import pytz
-
+import platform
+import asyncio
+if platform.system() == 'Windows':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 """
 Testing_channel_id=831911965643112489
 Main Channel id=831833834671702086
@@ -99,7 +103,7 @@ async def deletemessages(a):
             print("Exception Raised", e.message)
 
 
-@tasks.loop(minutes=30)
+@tasks.loop(seconds=1, count=1)
 async def TodayBday():
     today = datetime.now(pytz.timezone(timezone))
     """
@@ -221,18 +225,22 @@ async def TodayBday():
     daily_sent_messages = [i.id for i in daily_sent_messages]
     open(r"daily_sent_messages.json",
          "w").write(json.dumps(daily_sent_messages))
-    shutdown()
-
+    TodayBday.stop()
 
 
 @TodayBday.before_loop
 async def before():
+    print("Before loop")
     await bot.wait_until_ready()
 
+
+@TodayBday.after_loop
 async def shutdown():
-    await bot.logout()
+    TodayBday.cancel()
     await bot.close()
-    await LogPrint("Shutdown")
-    exit()
 TodayBday.start()
-bot.run("ODMxNTMyMTQ1NDUzMzAxNzcw.YHWmqA.X3k3mfLzhewi3iJg2OL_upD-OTE")
+
+try:
+    bot.run("ODMxNTMyMTQ1NDUzMzAxNzcw.YHWmqA.X3k3mfLzhewi3iJg2OL_upD-OTE")
+except:
+    print("Error")
