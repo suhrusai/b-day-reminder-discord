@@ -47,7 +47,7 @@ firebase_admin.initialize_app(cred, {
 ref = db.reference('birthday-reminder-bb6f8-default-rtdb')
 embed_colors = [0xff31ba,  0xb7f205, 0x00f2d6, 0xf1c40f]
 random.shuffle(embed_colors)
-timezone = 'Asia/Katmandu'
+timezone = 'Antarctica/Vostok'
 today = datetime.now(pytz.timezone(timezone))
 
 ref = db.reference("/")
