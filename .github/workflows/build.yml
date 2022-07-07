@@ -15,6 +15,11 @@ jobs:
         DAILY_SENT_FILE_NAME: "daily-private.txt"
         MONTHLY_SENT_FILE_NAME: "montly-private.txt"
         BOT_TOKEN: "ODMxNTMyMTQ1NDUzMzAxNzcw.YHWmqA.X3k3mfLzhewi3iJg2OL_upD-OTE"
+        CERTIFICATE_PATH: "private-certificate.json"
+        DATABASE_URL: "https://birthday-reminder-bb6f8-default-rtdb.europe-west1.firebasedatabase.app/"
+        STORAGE_BUCKET: "gs://birthday-reminder-bb6f8.appspot.com"
+        DB_REFERENCE: "birthday-reminder-bb6f8-default-rtdb"
+        LOG_CHANNEL_ID: 876070119867031592
         
     runs-on: windows-latest
     steps:

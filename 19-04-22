@@ -1,6 +1,0 @@
-19-04-22 01:19:02  :  `BDAY BOT (Today's Bday): Key: 20Value : {'DOB': '19-04-2001', 'Gender': 'M', 'Image': 'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/1602-18-733-044.jpg?alt=media&token=b32d7020-2bac-4c95-a763-a79441cf2437', 'Name': 'Sala Sai suhrut'}`
-19-04-22 01:19:43  :  `BDAY BOT (Today's Bday): Key: 20Value : {'DOB': '19-04-2001', 'Gender': 'M', 'Image': 'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/1602-18-733-044.jpg?alt=media&token=b32d7020-2bac-4c95-a763-a79441cf2437', 'Name': 'Sala Sai suhrut'}`
-19-04-22 01:25:33  :  `deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))`
-19-04-22 01:25:35  :  `BDAY BOT (Today's Bday): Key: 20Value : {'DOB': '19-04-2001', 'Gender': 'M', 'Image': 'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/1602-18-733-044.jpg?alt=media&token=b32d7020-2bac-4c95-a763-a79441cf2437', 'Name': 'Sala Sai suhrut'}`
-19-04-22 01:34:45  :  `deletemessages(json.loads(open(r"daily_sent_messages.json", "r").read()))`
-19-04-22 01:34:46  :  `BDAY BOT (Today's Bday): Key: 20Value : {'DOB': '19-04-2001', 'Gender': 'M', 'Image': 'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/1602-18-733-044.jpg?alt=media&token=b32d7020-2bac-4c95-a763-a79441cf2437', 'Name': 'Sala Sai suhrut'}`

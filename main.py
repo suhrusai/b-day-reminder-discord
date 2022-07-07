@@ -25,7 +25,7 @@ if platform.system() == 'Windows':
 Testing_channel_id=831911965643112489
 Main Channel id=831833834671702086
 """
-target_channel_id = 958460165533859900
+target_channel_id = int(os.getenv('TARGET_CHANNEL'))
 """
 Iitilizing Firebase Credentials and getting the database information
 Also Setting up discord Bot
@@ -42,14 +42,13 @@ def download_image(url):
 
 
 # Fetch the service account key JSON file contents
-cred = credentials.Certificate(
-    r'certificate.json')
+cred = credentials.Certificate(os.getenv("CERTIFICATE_PATH"))
 # Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://birthday-reminder-bb6f8-default-rtdb.europe-west1.firebasedatabase.app/',
-    'storageBucket': 'gs://birthday-reminder-bb6f8.appspot.com'
+    'databaseURL': os.getenv('DATABASE_URL'),
+    'storageBucket': os.getenv('STORAGE_BUCKET')
 })
-ref = db.reference('birthday-reminder-bb6f8-default-rtdb')
+ref = db.reference(os.getenv('DB_REFERENCE'))
 embed_colors = [0xff31ba,  0xb7f205, 0x00f2d6, 0xf1c40f]
 random.shuffle(embed_colors)
 timezone = 'Antarctica/Vostok'
@@ -81,7 +80,7 @@ async def LogPrint(ActionToBeLogged):
     baseDirectory = ""
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
-    log_channel = bot.get_channel(876070119867031592)
+    log_channel = bot.get_channel(int(os.getenv('LOG_CHANNEL_ID')))
     # await log_channel.send(LogStatement)
     try:
         f = open(baseDirectory + today.strftime('%d-%m-%y'), "a+")
@@ -118,7 +117,7 @@ async def TodayBday():
         await deletemessages(
             json.loads(open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
     except:
-        await LogPrint('deletemessages(json.loads(open(r"',os.getenv("DAILY_SENT_FILE_NAME"),',", "r").read()))')
+        await LogPrint('deletemessages(json.loads(open(r"'+os.getenv("DAILY_SENT_FILE_NAME")+',", "r").read()))')
     if (today.strftime("%d") == "01"):
         try:
             await deletemessages(
@@ -224,7 +223,7 @@ async def TodayBday():
                 pass
         i += 1
     daily_sent_messages = [i.id for i in daily_sent_messages]
-    open(r"daily_sent_messages.json",
+    open(os.getenv("DAILY_SENT_FILE_NAME"),
          "w").write(json.dumps(daily_sent_messages))
     TodayBday.stop()
 
