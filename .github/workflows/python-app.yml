@@ -5,18 +5,15 @@ name: Birthday Update
 on:
   schedule:
     - cron: '00 18 * * *' 
+  workflow_dispatch:
 jobs:
   personal-channel:
     runs-on : windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.0
-      - name: Setup Python
-        uses: actions/setup-python@v3.0.0    
-      - name: Python Pip Install
-        uses: logikal-code/pip-install@v1.0.0
-      - name: Run Python Program
-        run:  python main.py
+      - name: Running the program
+        run: ".\\main.exe"
 
   # You may pin to the exact commit or the version.
   # uses: reloc8/action-push-local-changes@db6ff4a3eac620530c970af02229a260240aa8aa
