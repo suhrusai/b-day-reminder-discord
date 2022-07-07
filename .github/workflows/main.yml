@@ -1,0 +1,28 @@
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout b-day-reminder-discord
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v3.0.0    
+      - name: Python libraries in requirements.txt
+        uses: logikal-code/pip-install@v1.0.0
+      - name: Install pyInstaller
+        run : pip install pyinstaller
+      - name: Building the bot
+        run: pyinstaller --onefile main.py
+      - name: Move generated exe from dist to main folder
+        run: Move-Item "/dist/main.exe" "/"  
