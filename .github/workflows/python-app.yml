@@ -20,7 +20,7 @@ jobs:
       DATABASE_URL: "https://birthday-reminder-bb6f8-default-rtdb.europe-west1.firebasedatabase.app/"
       STORAGE_BUCKET: "gs://birthday-reminder-bb6f8.appspot.com"
       DB_REFERENCE: "birthday-reminder-bb6f8-default-rtdb"
-      LOG_CHANNEL_ID: "958625740956520458"
+      LOG_CHANNEL_ID: "995068187978764478"
       TARGET_CHANNEL: "958460165533859900"
     runs-on : windows-latest
     steps:
@@ -52,8 +52,8 @@ jobs:
         DATABASE_URL: "https://fir-authsuhrut.firebaseio.com"
         STORAGE_BUCKET: "firebaseauthsuhrut.appspot.com"
         DB_REFERENCE: "fir-authsuhrut"
-        LOG_CHANNEL_ID: "876070119867031592"
-        TARGET_CHANNEL: "831833834671702086"
+        LOG_CHANNEL_ID: "995068122606350408"
+        TARGET_CHANNEL: "958622808294961152"
         #Testing_channel_id=831911965643112489
         #Main Channel id=831833834671702086
       runs-on : windows-latest
