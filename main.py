@@ -225,8 +225,11 @@ async def TodayBday():
     daily_sent_messages = [i.id for i in daily_sent_messages]
     open(os.getenv("DAILY_SENT_FILE_NAME"),
          "w").write(json.dumps(daily_sent_messages))
+    try:
+        os.remove("temp.png")
+    except:
+        print("Temporary image file deleted")
     TodayBday.stop()
-
 
 @TodayBday.before_loop
 async def before():
