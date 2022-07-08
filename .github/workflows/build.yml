@@ -1,4 +1,4 @@
-
+name: Bulid
 on:
   push:
     branches: [ "master" ]
