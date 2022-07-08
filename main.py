@@ -233,6 +233,7 @@ async def TodayBday():
         print("Temporary image file deletion failed")
     TodayBday.stop()
 
+
 @TodayBday.before_loop
 async def before():
     print("Before loop")
@@ -242,7 +243,9 @@ async def before():
 @TodayBday.after_loop
 async def shutdown():
     TodayBday.cancel()
-    exit()
+    await bot.logout()
+    print("Shutdown")
+
 TodayBday.start()
 
 bot.run(os.getenv("BOT_TOKEN"))
