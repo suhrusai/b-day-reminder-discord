@@ -6,6 +6,10 @@ on:
   schedule:
     - cron: '00 18 * * *' 
   workflow_dispatch:
+  workflow_run:
+    workflows: [Build]
+    types:
+      - completed
 jobs:
   personal-channel:
     env:
