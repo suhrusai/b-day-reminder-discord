@@ -226,9 +226,11 @@ async def TodayBday():
     open(os.getenv("DAILY_SENT_FILE_NAME"),
          "w").write(json.dumps(daily_sent_messages))
     try:
+        print("Trying deletion og temp.png")
         os.remove("temp.png")
+        print("temp.png deletion successful")
     except:
-        print("Temporary image file deleted")
+        print("Temporary image file deletion failed")
     TodayBday.stop()
 
 @TodayBday.before_loop
