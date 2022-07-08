@@ -81,7 +81,7 @@ async def LogPrint(ActionToBeLogged):
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
     log_channel = bot.get_channel(int(os.getenv('LOG_CHANNEL_ID')))
-    # await log_channel.send(LogStatement)
+    await log_channel.send(LogStatement)
     try:
         f = open(baseDirectory + today.strftime('%d-%m-%y'), "a+")
         f.write(LogStatement)
