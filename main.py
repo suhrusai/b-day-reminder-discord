@@ -242,10 +242,9 @@ async def before():
 @TodayBday.after_loop
 async def shutdown():
     TodayBday.cancel()
-    await bot.close()
+    exit()
 TodayBday.start()
 
-try:
-    bot.run(os.getenv("BOT_TOKEN"))
-except:
-    print("Error")
+bot.run(os.getenv("BOT_TOKEN"))
+for k, v in os.environ.items():
+    print(f'{k}={v}')
