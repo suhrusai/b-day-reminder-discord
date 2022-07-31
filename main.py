@@ -76,6 +76,14 @@ month_labels = [
 bday_wish_pic = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
 message_channel = None
 
+print("LOG_CHANNEL_ID", os.getenv('LOG_CHANNEL_ID'))
+print("DAILY_SENT_FILE_NAME", os.getenv("DAILY_SENT_FILE_NAME"))
+print("Monthly_SENT_FILE_NAME", os.getenv("MONTHLY_SENT_FILE_NAME"))
+print("certificate_path", os.getenv("CERTIFICATE_PATH"))
+print("database_url", os.getenv("DATABASE_URL"))
+print("storage_bucket", os.getenv("STORAGE_BUCKET"))
+print("db_reference", os.getenv("DB_REFERENCE"))
+
 
 async def LogPrint(ActionToBeLogged):
     today = datetime.now(pytz.timezone(timezone))
