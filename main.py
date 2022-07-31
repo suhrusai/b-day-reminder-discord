@@ -25,6 +25,8 @@ if platform.system() == 'Windows':
 Testing_channel_id=831911965643112489
 Main Channel id=831833834671702086
 """
+for key, value in os.environ.items():
+    print('{}: {}'.format(key, value))
 target_channel_id = int(os.getenv('TARGET_CHANNEL'))
 """
 Iitilizing Firebase Credentials and getting the database information
