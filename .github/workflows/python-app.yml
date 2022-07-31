@@ -52,7 +52,7 @@ jobs:
         DATABASE_URL: "https://fir-authsuhrut.firebaseio.com"
         STORAGE_BUCKET: "firebaseauthsuhrut.appspot.com"
         DB_REFERENCE: "fir-authsuhrut"
-        LOG_CHANNEL_ID: "995068122606350408"
+        LOG_CHANNEL_ID: "995068225303887952"
         TARGET_CHANNEL: "958622808294961152"
         #Testing_channel_id=831911965643112489
         #Main Channel id=831833834671702086
