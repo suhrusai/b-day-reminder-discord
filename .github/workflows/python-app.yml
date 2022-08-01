@@ -15,7 +15,7 @@ jobs:
     env:
       DAILY_SENT_FILE_NAME: "daily-private.json"
       MONTHLY_SENT_FILE_NAME: "montly-private.json"
-      BOT_TOKEN: "ODMxNTMyMTQ1NDUzMzAxNzcw.YHWmqA.X3k3mfLzhewi3iJg2OL_upD-OTE"
+      BOT_TOKEN: "ODA2NTc5NzU3Njg0MjI4MTk3.GzJkrI._pjMNrz3wdEDQN3ao8RZFQynTZx0aMNf9EpkUE"
       CERTIFICATE_PATH: "private-certificate.json"
       DATABASE_URL: "https://birthday-reminder-bb6f8-default-rtdb.europe-west1.firebasedatabase.app/"
       STORAGE_BUCKET: "gs://birthday-reminder-bb6f8.appspot.com"
@@ -47,7 +47,7 @@ jobs:
       env:
         DAILY_SENT_FILE_NAME: "daily-general.json"
         MONTHLY_SENT_FILE_NAME: "montly-general.json"
-        BOT_TOKEN: "ODMxNTMyMTQ1NDUzMzAxNzcw.YHWmqA.X3k3mfLzhewi3iJg2OL_upD-OTE"
+        BOT_TOKEN: "ODA2NTc5NzU3Njg0MjI4MTk3.GzJkrI._pjMNrz3wdEDQN3ao8RZFQynTZx0aMNf9EpkUE"
         CERTIFICATE_PATH: "general-certificate.json"
         DATABASE_URL: "https://fir-authsuhrut.firebaseio.com"
         STORAGE_BUCKET: "firebaseauthsuhrut.appspot.com"
