@@ -74,7 +74,7 @@ month_labels = [
 bday_wish_pic = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
 message_channel = None
 
-print("LOG_CHANNEL_ID", os.getenv('LOG_CHANNEL_ID'))
+print("LOG_CHANNEL_ID", os.getenv('LOG_CHANNEL_ID'),type(os.getenv('LOG_CHANNEL_ID')))
 print("DAILY_SENT_FILE_NAME", os.getenv("DAILY_SENT_FILE_NAME"))
 print("Monthly_SENT_FILE_NAME", os.getenv("MONTHLY_SENT_FILE_NAME"))
 print("certificate_path", os.getenv("CERTIFICATE_PATH"))
@@ -88,14 +88,18 @@ async def LogPrint(ActionToBeLogged):
     baseDirectory = ""
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
-    log_channel = bot.get_channel(os.getenv('LOG_CHANNEL_ID'))
-    await log_channel.send(LogStatement)
     try:
-        f = open(baseDirectory + today.strftime('%d-%m-%y'), "a+")
-        f.write(LogStatement)
-        f.close()
+        log_channel = bot.get_channel(os.getenv('LOG_CHANNEL_ID'))
+        await log_channel.send(LogStatement)
+        try:
+            f = open(baseDirectory + today.strftime('%d-%m-%y'), "a+")
+            f.write(LogStatement)
+            f.close()
+        except:
+            print("Unable to write log statement")
     except:
-        pass
+        print("LogPrint Error")
+        print(Logstatement)
 
 
 async def deletemessages(a):
@@ -255,8 +259,6 @@ async def shutdown():
     print("Shutdown")
 
 TodayBday.start()
-for k, v in os.environ.items():
-    print(f'{k}={v}')
 try:
     bot.run(os.getenv("BOT_TOKEN"))
 except Exception as e:
