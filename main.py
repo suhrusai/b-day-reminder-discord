@@ -99,7 +99,6 @@ async def LogPrint(ActionToBeLogged):
             print("Unable to write log statement")
     except:
         print("LogPrint Error")
-        print(Logstatement)
 
 
 async def deletemessages(a):
