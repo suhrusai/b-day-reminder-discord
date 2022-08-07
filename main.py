@@ -25,7 +25,8 @@ if platform.system() == 'Windows':
 Testing_channel_id=831911965643112489
 Main Channel id=831833834671702086
 """
-target_channel_id = os.getenv('TARGET_CHANNEL_ID')
+os.getenv('TARGET_CHANNEL')
+target_channel_id = os.getenv('TARGET_CHANNEL')
 """
 Iitilizing Firebase Credentials and getting the database information
 Also Setting up discord Bot
