@@ -90,7 +90,8 @@ async def LogPrint(ActionToBeLogged):
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
     try:
-        log_channel = bot.get_channel(os.getenv('LOG_CHANNEL_ID'))
+        log_channel = bot.get_guild(806579403990499369).get_channel(
+            os.getenv('LOG_CHANNEL_ID'))
         await log_channel.send(LogStatement)
         try:
             f = open(baseDirectory + today.strftime('%d-%m-%y'), "a+")
@@ -104,7 +105,8 @@ async def LogPrint(ActionToBeLogged):
 
 async def deletemessages(a):
 
-    message_channel = bot.get_channel(target_channel_id)
+    message_channel = bot.get_guild(
+        806579403990499369).get_channel(target_channel_id)
     print("Messages to be Deleted:", a)
     for msg_id in a:
         try:
@@ -123,7 +125,8 @@ async def TodayBday():
         Second part sends notification in case of birthday 
     """
     # await asyncio.sleep(waitTime)
-    message_channel = bot.get_channel(target_channel_id)
+    message_channel = bot.get_guild(
+        os.getenv("SERVER_ID")).get_channel(target_channel_id)
     daily_sent_messages = []
     try:
         await deletemessages(
@@ -145,7 +148,8 @@ async def TodayBday():
         temparray = sorted(temparray,
                            key=lambda x:
                            (int(x["DOB"][3:5]), int(x["DOB"][:2])))
-        message_channel = bot.get_channel(target_channel_id)
+        message_channel = bot.get_guild(
+            "SERVER_ID").get_channel(target_channel_id)
         url = month_labels[int(today.strftime("%m")) - 1]
         download_image(url)
         monthly_birthday_messages.append(
