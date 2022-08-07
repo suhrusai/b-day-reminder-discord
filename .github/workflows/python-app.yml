@@ -22,6 +22,7 @@ jobs:
       DB_REFERENCE: "birthday-reminder-bb6f8-default-rtdb"
       LOG_CHANNEL_ID: "995068187978764478"
       TARGET_CHANNEL: "958460165533859900"
+      SERVER_ID: "806579403990499369"
     runs-on : windows-latest
     steps:
       - name: Checkout
@@ -54,6 +55,7 @@ jobs:
         DB_REFERENCE: "fir-authsuhrut"
         LOG_CHANNEL_ID: "995068225303887952"
         TARGET_CHANNEL: "958622808294961152"
+        SERVER_ID: "831513173361819718"
         #Testing_channel_id=831911965643112489
         #Main Channel id=831833834671702086
       runs-on : windows-latest

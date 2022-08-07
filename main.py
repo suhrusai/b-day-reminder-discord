@@ -74,7 +74,8 @@ month_labels = [
 bday_wish_pic = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
 message_channel = None
 
-print("LOG_CHANNEL_ID", os.getenv('LOG_CHANNEL_ID'),type(os.getenv('LOG_CHANNEL_ID')))
+print("LOG_CHANNEL_ID", os.getenv('LOG_CHANNEL_ID'),
+      type(os.getenv('LOG_CHANNEL_ID')))
 print("DAILY_SENT_FILE_NAME", os.getenv("DAILY_SENT_FILE_NAME"))
 print("Monthly_SENT_FILE_NAME", os.getenv("MONTHLY_SENT_FILE_NAME"))
 print("certificate_path", os.getenv("CERTIFICATE_PATH"))
@@ -181,7 +182,8 @@ async def TodayBday():
         monthly_birthday_messages = [i.id for i in monthly_birthday_messages]
         open(os.getenv("MONTHLY_SENT_FILE_NAME"),
              "w").write(json.dumps(monthly_birthday_messages))
-    message_channel = bot.get_channel(target_channel_id)
+    message_channel = bot.get_guild(
+        os.getenv("SERVER_ID")).get_channel(target_channel_id)
     image_printed = False
     i = 0
     print(f"Got channel {message_channel}")
