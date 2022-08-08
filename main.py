@@ -236,6 +236,7 @@ async def TodayBday():
         print("temp.png deletion successful")
     except:
         print("Temporary image file deletion failed")
+    exit()
 TOKEN = os.getenv("BOT_TOKEN")
 client = discord.Client()
 
