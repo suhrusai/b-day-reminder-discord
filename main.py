@@ -89,9 +89,8 @@ async def LogPrint(ActionToBeLogged):
             f.close()
         except:
             print("Unable to write log statement")
-    except Exception as e Exception as e:
+    except Exception as e:
         print("LogPrint Error")
-        print(e)
         print(e)
 
 
@@ -240,7 +239,6 @@ async def TodayBday():
 
 client = discord.Client()
 
-TOKEN = os.getenv("BOT_TOKEN")
 TOKEN = os.getenv("BOT_TOKEN")
 
 
