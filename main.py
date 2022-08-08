@@ -1,5 +1,6 @@
 # bot.py
 import os
+from sys import exit
 # bot.py
 import os
 from asyncio import Task
