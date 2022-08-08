@@ -236,7 +236,7 @@ async def TodayBday():
         print("temp.png deletion successful")
     except:
         print("Temporary image file deletion failed")
-    exit()
+
 TOKEN = os.getenv("BOT_TOKEN")
 client = discord.Client()
 
@@ -245,4 +245,5 @@ client = discord.Client()
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
     await TodayBday()
+    exit()
 client.run(TOKEN)
