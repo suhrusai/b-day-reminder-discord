@@ -1,3 +1,5 @@
+# bot.py
+import os
 from asyncio import Task
 import random
 from discord.ext import commands, tasks
@@ -19,18 +21,12 @@ import pytz
 import platform
 import asyncio
 import os
-if platform.system() == 'Windows':
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-"""
-Testing_channel_id=831911965643112489
-Main Channel id=831833834671702086
-"""
-os.getenv('TARGET_CHANNEL')
-target_channel_id = os.getenv('TARGET_CHANNEL')
-"""
-Iitilizing Firebase Credentials and getting the database information
-Also Setting up discord Bot
-"""
+import discord
+from dotenv import load_dotenv
+
+load_dotenv()
+
+target_channel_id = int(os.getenv("TARGET_CHANNEL"))
 
 
 def download_image(url):
@@ -45,12 +41,14 @@ def download_image(url):
 # Fetch the service account key JSON file contents
 cred = credentials.Certificate(os.getenv("CERTIFICATE_PATH"))
 # Initialize the app with a service account, granting admin privileges
-firebase_admin.initialize_app(cred, {
-    'databaseURL': os.getenv('DATABASE_URL'),
-    'storageBucket': os.getenv('STORAGE_BUCKET')
-})
+firebase_admin.initialize_app(
+    cred, {
+        'databaseURL': os.getenv('DATABASE_URL'),
+        'storageBucket': os.getenv('STORAGE_BUCKET')
+    })
+
 ref = db.reference(os.getenv('DB_REFERENCE'))
-embed_colors = [0xff31ba,  0xb7f205, 0x00f2d6, 0xf1c40f]
+embed_colors = [0xff31ba, 0xb7f205, 0x00f2d6, 0xf1c40f]
 random.shuffle(embed_colors)
 timezone = 'Antarctica/Vostok'
 today = datetime.now(pytz.timezone(timezone))
@@ -75,15 +73,6 @@ month_labels = [
 bday_wish_pic = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
 message_channel = None
 
-print("LOG_CHANNEL_ID", os.getenv('LOG_CHANNEL_ID'),
-      type(os.getenv('LOG_CHANNEL_ID')))
-print("DAILY_SENT_FILE_NAME", os.getenv("DAILY_SENT_FILE_NAME"))
-print("Monthly_SENT_FILE_NAME", os.getenv("MONTHLY_SENT_FILE_NAME"))
-print("certificate_path", os.getenv("CERTIFICATE_PATH"))
-print("database_url", os.getenv("DATABASE_URL"))
-print("storage_bucket", os.getenv("STORAGE_BUCKET"))
-print("db_reference", os.getenv("DB_REFERENCE"))
-
 
 async def LogPrint(ActionToBeLogged):
     today = datetime.now(pytz.timezone(timezone))
@@ -91,7 +80,7 @@ async def LogPrint(ActionToBeLogged):
     LogStatement = today.strftime(
         "%d-%m-%y %H:%M:%S") + "  :  `" + ActionToBeLogged + "`\n"
     try:
-        log_channel = bot.get_channel(os.getenv('LOG_CHANNEL_ID'))
+        log_channel = client.get_channel(int(os.getenv('LOG_CHANNEL_ID')))
         await log_channel.send(LogStatement)
         try:
             f = open(baseDirectory + today.strftime('%d-%m-%y'), "a+")
@@ -99,13 +88,14 @@ async def LogPrint(ActionToBeLogged):
             f.close()
         except:
             print("Unable to write log statement")
-    except:
+    except Exception as e:
         print("LogPrint Error")
+        print(e)
 
 
 async def deletemessages(a):
 
-    message_channel = bot.get_channel(target_channel_id)
+    message_channel = client.get_channel(target_channel_id)
     print("Messages to be Deleted:", a)
     for msg_id in a:
         try:
@@ -116,7 +106,6 @@ async def deletemessages(a):
             print("Exception Raised", e.message)
 
 
-@tasks.loop(seconds=1, count=1)
 async def TodayBday():
     today = datetime.now(pytz.timezone(timezone))
     """
@@ -124,17 +113,19 @@ async def TodayBday():
         Second part sends notification in case of birthday 
     """
     # await asyncio.sleep(waitTime)
-    message_channel = bot.get_channel(target_channel_id)
+    message_channel = client.get_channel(target_channel_id)
     daily_sent_messages = []
     try:
         await deletemessages(
             json.loads(open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
     except:
-        await LogPrint('deletemessages(json.loads(open(r"'+os.getenv("DAILY_SENT_FILE_NAME")+',", "r").read()))')
-    if (today.strftime("%d") == "01"):
+        await LogPrint('deletemessages(json.loads(open(r"' +
+                       os.getenv("DAILY_SENT_FILE_NAME") + ',", "r").read()))')
+    if (today.strftime("%d") == "01" or True):
         try:
             await deletemessages(
-                json.loads(open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
+                json.loads(
+                    open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
         except:
             pass
         monthly_birthday_messages = []
@@ -146,7 +137,7 @@ async def TodayBday():
         temparray = sorted(temparray,
                            key=lambda x:
                            (int(x["DOB"][3:5]), int(x["DOB"][:2])))
-        message_channel = bot.get_channel(target_channel_id)
+        message_channel = client.get_channel(target_channel_id)
         url = month_labels[int(today.strftime("%m")) - 1]
         download_image(url)
         monthly_birthday_messages.append(
@@ -157,23 +148,22 @@ async def TodayBday():
             dob = value["DOB"]
             age = int(today.strftime("%Y")) - int(value['DOB'][-4:])
             color = embed_colors[i % (len(embed_colors))]
-            embed = discord.Embed(
-                color=color)
-            embed.add_field(
-                name="Name", value="{}".format(name), inline=False)
-            embed.add_field(name="Date of Birth",
-                            value="{}".format(dob))
-            embed.add_field(
-                name="Age(To be)", value="{} Years".format(age), inline=True)
-            embed.set_footer(
-                text="{}({}).  Developed by Sai Suhrut".format(today.strftime(" %d/%m/%Y, %H:%M:%S"), timezone))
+            embed = discord.Embed(color=color)
+            embed.add_field(name="Name", value="{}".format(name), inline=False)
+            embed.add_field(name="Date of Birth", value="{}".format(dob))
+            embed.add_field(name="Age(To be)",
+                            value="{} Years".format(age),
+                            inline=True)
+            embed.set_footer(text="{}({}).  Developed by Sai Suhrut".format(
+                today.strftime(" %d/%m/%Y, %H:%M:%S"), timezone))
             if int(today.strftime("%m")) == int(value["DOB"][3:5]):
                 try:
                     url = value['Image']
                     download_image(url)
                     monthly_birthday_messages.append(
-                        await message_channel.send(
-                            file=discord.File("temp.png"), embed=embed))
+                        await
+                        message_channel.send(file=discord.File("temp.png"),
+                                             embed=embed))
                 except:
                     print(value)
                     monthly_birthday_messages.append(
@@ -183,7 +173,7 @@ async def TodayBday():
         monthly_birthday_messages = [i.id for i in monthly_birthday_messages]
         open(os.getenv("MONTHLY_SENT_FILE_NAME"),
              "w").write(json.dumps(monthly_birthday_messages))
-    message_channel = bot.get_channel(target_channel_id)
+    message_channel = client.get_channel(target_channel_id)
     image_printed = False
     i = 0
     print(f"Got channel {message_channel}")
@@ -207,29 +197,28 @@ async def TodayBday():
             dob = value["DOB"]
             color = embed_colors[i % len(embed_colors)]
             gender_string = " on her " if value["Gender"] == "F" else " on his "
-            embed = discord.Embed(
-                title="Wish {}{}{}{} Birthday🎂".format(name, gender_string, age, agestring), color=color)
-            embed.add_field(
-                name="Name", value="{}".format(name), inline=False)
-            embed.add_field(name="Date of Birth",
-                            value="{}".format(dob))
-            embed.add_field(
-                name="Age", value="{} Years".format(age), inline=True)
-            embed.set_footer(
-                text="{}({}).  Developed by Sai Suhrut".format(today.strftime(" %m/%d/%Y, %H:%M:%S"), timezone))
+            embed = discord.Embed(title="Wish {}{}{}{} Birthday🎂".format(
+                name, gender_string, age, agestring), color=color)
+            embed.add_field(name="Name", value="{}".format(name), inline=False)
+            embed.add_field(name="Date of Birth", value="{}".format(dob))
+            embed.add_field(name="Age",
+                            value="{} Years".format(age),
+                            inline=True)
+            embed.set_footer(text="{}({}).  Developed by Sai Suhrut".format(
+                today.strftime(" %m/%d/%Y, %H:%M:%S"), timezone))
             embed.set_thumbnail(
                 url="https://jooinn.com/images/birthday-cake-clipart.jpg")
             try:
                 url = value['Image']
                 download_image(url)
-                daily_sent_messages.append(await message_channel.send(file=discord.File("temp.png"), embed=embed))
+                daily_sent_messages.append(await message_channel.send(
+                    file=discord.File("temp.png"), embed=embed))
                 await LogPrint("BDAY BOT (Today's Bday): " + "Key: " +
                                str(key) + "Value : " + str(value))
             except Exception as e:
                 print("Exception :", e)
                 daily_sent_messages.append(
-                    await
-                    message_channel.send(embed=embed),)
+                    await message_channel.send(embed=embed), )
                 await LogPrint("BDAY BOT (Today's Bday): " + "Key: " +
                                str(key) + "Value : " + str(value))
             finally:
@@ -244,26 +233,14 @@ async def TodayBday():
         print("temp.png deletion successful")
     except:
         print("Temporary image file deletion failed")
-    TodayBday.stop()
+
+client = discord.Client()
+
+TOKEN = os.getenv("BOT_TOKEN")
 
 
-@TodayBday.before_loop
-async def before():
-    print("Before loop")
-    await bot.wait_until_ready()
-
-
-@TodayBday.after_loop
-async def shutdown():
-    TodayBday.cancel()
-    await bot.close()
-    print("Shutdown")
-
-TodayBday.start()
-try:
-    bot.run(os.getenv("BOT_TOKEN"))
-except Exception as e:
-    if(bot.is_closed):
-        print("Bot is closed")
-    else:
-        print(e)
+@client.event
+async def on_ready():
+    print(f'{client.user} has connected to Discord!')
+    await TodayBday()
+client.run()
