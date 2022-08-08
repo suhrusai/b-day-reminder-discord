@@ -114,6 +114,7 @@ async def TodayBday():
         First part of the below code generates the monthly bdays
         Second part sends notification in case of birthday 
     """
+    debugMonth = True
     # await asyncio.sleep(waitTime)
     message_channel = client.get_channel(target_channel_id)
     daily_sent_messages = []
@@ -123,12 +124,11 @@ async def TodayBday():
     except:
         await LogPrint('deletemessages(json.loads(open(r"' +
                        os.getenv("DAILY_SENT_FILE_NAME") + ',", "r").read()))')
-    if (today.strftime("%d") == "01" or True):
+    if (today.strftime("%d") == "01" or debugMonth):
         try:
             await deletemessages(
                 json.loads(
-
-                    open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
+                    open(os.getenv("MONTHLY_SENT_FILE_NAME"), "r").read()))
         except:
             pass
         monthly_birthday_messages = []
