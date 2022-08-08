@@ -1,5 +1,7 @@
 # bot.py
 import os
+# bot.py
+import os
 from asyncio import Task
 import random
 from discord.ext import commands, tasks
@@ -39,10 +41,12 @@ def download_image(url):
 cred = credentials.Certificate(os.getenv("CERTIFICATE_PATH"))
 # Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(
+
     cred, {
         'databaseURL': os.getenv('DATABASE_URL'),
         'storageBucket': os.getenv('STORAGE_BUCKET')
     })
+
 
 ref = db.reference(os.getenv('DB_REFERENCE'))
 embed_colors = [0xff31ba, 0xb7f205, 0x00f2d6, 0xf1c40f]
@@ -85,8 +89,9 @@ async def LogPrint(ActionToBeLogged):
             f.close()
         except:
             print("Unable to write log statement")
-    except Exception as e:
+    except Exception as e Exception as e:
         print("LogPrint Error")
+        print(e)
         print(e)
 
 
@@ -122,6 +127,7 @@ async def TodayBday():
         try:
             await deletemessages(
                 json.loads(
+
                     open(os.getenv("DAILY_SENT_FILE_NAME"), "r").read()))
         except:
             pass
@@ -209,6 +215,7 @@ async def TodayBday():
                 url = value['Image']
                 download_image(url)
                 daily_sent_messages.append(await message_channel.send(
+
                     file=discord.File("temp.png"), embed=embed))
                 await LogPrint("BDAY BOT (Today's Bday): " + "Key: " +
                                str(key) + "Value : " + str(value))
@@ -233,6 +240,7 @@ async def TodayBday():
 
 client = discord.Client()
 
+TOKEN = os.getenv("BOT_TOKEN")
 TOKEN = os.getenv("BOT_TOKEN")
 
 
