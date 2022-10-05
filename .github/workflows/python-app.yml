@@ -11,7 +11,7 @@ on:
     types:
       - completed
   repository_dispatch:
-      [AWS_TRIGGER]
+      types: [aws_event]
 jobs:
   personal-channel:
     env:
