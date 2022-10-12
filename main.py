@@ -57,7 +57,7 @@ today = datetime.now(pytz.timezone(timezone))
 
 ref = db.reference("/")
 bdays = ref.get()
-bot = commands.Bot("!",discord.Intents.all())
+bot = commands.Bot(discord.Intents.all())
 month_labels = [
     'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2FSlide1.JPG?alt=media&token=64277866-8c5b-40e3-9e2a-d05428777af2',
     'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2FSlide2.JPG?alt=media&token=56d1540d-304f-4dfe-9527-897bf880e25e',
