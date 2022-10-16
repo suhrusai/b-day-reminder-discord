@@ -27,7 +27,6 @@ import os
 import discord
 from dotenv import load_dotenv
 
-load_dotenv()
 
 target_channel_id = int(os.getenv("TARGET_CHANNEL"))
 
