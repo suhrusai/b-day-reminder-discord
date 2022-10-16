@@ -190,7 +190,7 @@ async def TodayBday():
     for key, value in bdays.items():
         # print(value["DOB"])
         # print(today.strftime("%d-%m"),value["DOB"][0:5])
-        if (today.strftime("%d-%m") == value["DOB"][0:5] or True):
+        if (today.strftime("%d-%m") == value["DOB"][0:5]):
             age = int(today.strftime("%Y")) - int(value['DOB'][-4:])
             agestring = ""
             if (age % 10 == 1):
