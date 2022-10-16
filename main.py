@@ -25,6 +25,9 @@ import platform
 import asyncio
 import os
 import discord
+from dotenv import load_dotenv
+
+load_dotenv()
 
 target_channel_id = int(os.getenv("TARGET_CHANNEL"))
 
@@ -57,8 +60,9 @@ today = datetime.now(pytz.timezone(timezone))
 
 ref = db.reference("/")
 bdays = ref.get()
-intents = discord.Intents.default() # or .all() if you ticked all, that is easier
-intents.members = True # If you ticked the SERVER MEMBERS INTENT
+# or .all() if you ticked all, that is easier
+intents = discord.Intents.default()
+intents.members = True  # If you ticked the SERVER MEMBERS INTENT
 bot = commands.Bot(command_prefix=".", intents=intents)
 
 month_labels = [
@@ -117,7 +121,7 @@ async def TodayBday():
         First part of the below code generates the monthly bdays
         Second part sends notification in case of birthday 
     """
-    ### Inorder to print this  months bday ( normally trigged on 1st day of the month )
+    # Inorder to print this  months bday ( normally trigged on 1st day of the month )
     debugMonth = False
     # await asyncio.sleep(waitTime)
     message_channel = client.get_channel(target_channel_id)
@@ -187,7 +191,7 @@ async def TodayBday():
     for key, value in bdays.items():
         # print(value["DOB"])
         # print(today.strftime("%d-%m"),value["DOB"][0:5])
-        if (today.strftime("%d-%m") == value["DOB"][0:5]):
+        if (today.strftime("%d-%m") == value["DOB"][0:5] or True):
             age = int(today.strftime("%Y")) - int(value['DOB'][-4:])
             agestring = ""
             if (age % 10 == 1):
