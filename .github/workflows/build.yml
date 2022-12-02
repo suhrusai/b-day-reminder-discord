@@ -16,8 +16,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout b-day-reminder-discord
         uses: actions/checkout@v3
-      - name: Setup Python
-        uses: actions/setup-python@v3.0.0    
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r requirements.txt
       - name: Python libraries in requirements.txt
         uses: logikal-code/pip-install@v1.0.0
       - name: Install pyInstaller
