@@ -121,7 +121,7 @@ async def TodayBday():
         Second part sends notification in case of birthday 
     """
     # Inorder to print this  months bday ( normally trigged on 1st day of the month )
-    debugMonth = False
+    debugMonth = True
     # await asyncio.sleep(waitTime)
     message_channel = client.get_channel(target_channel_id)
     daily_sent_messages = []
