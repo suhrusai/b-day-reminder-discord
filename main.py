@@ -81,6 +81,17 @@ month_labels = [
 bday_wish_pic = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
 message_channel = None
 
+def checkAndFilter(bdayArray):
+    # List of mandatory keys to be present
+    mandatoryKeys = ["Name","DOB","Gender"]
+    filteredArray = []
+    for value in bdayArray:
+        for key in mandatoryKeys:
+            if key in value.keys():
+                filteredArray.append(value)
+            else:
+                LogPrint("Improperly formatted data in database" , value)
+    return filteredArray
 
 async def LogPrint(ActionToBeLogged):
     today = datetime.now(pytz.timezone(timezone))
@@ -144,6 +155,7 @@ async def TodayBday():
         # print(bdays)
         for key, value in bdays.items():
             temparray.append(value)
+        temparray = checkAndFilter(temparray)
         temparray = sorted(temparray,
                            key=lambda x:
                            (int(x["DOB"][3:5]), int(x["DOB"][:2])))
