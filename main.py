@@ -26,8 +26,24 @@ import asyncio
 import os
 import discord
 from dotenv import load_dotenv
+from dotenv import dotenv_values
+def checkAndFilter(bdays):
+    # List of mandatory keys to be present
+    mandatoryKeys = ["Name","DOB","Gender"]
+    filteredBdays = dict()
+    for key, value in bdays.items():
+        mandatoryKeyFound = True
+        for mandatoryKey in mandatoryKeys:
+            if mandatoryKey not in value.keys():
+                mandatoryKeyFound = False
+        if mandatoryKeyFound:
+            filteredBdays[key] = value
+        else:
+            print("Mandatory key not found for ",value)
+    return filteredBdays
 
-
+config = dotenv_values(".env") 
+load_dotenv()
 target_channel_id = int(os.getenv("TARGET_CHANNEL"))
 
 
@@ -59,6 +75,8 @@ today = datetime.now(pytz.timezone(timezone))
 
 ref = db.reference("/")
 bdays = ref.get()
+bdays = checkAndFilter(bdays)
+
 # or .all() if you ticked all, that is easier
 intents = discord.Intents.default()
 intents.members = True  # If you ticked the SERVER MEMBERS INTENT
@@ -81,17 +99,6 @@ month_labels = [
 bday_wish_pic = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
 message_channel = None
 
-def checkAndFilter(bdayArray):
-    # List of mandatory keys to be present
-    mandatoryKeys = ["Name","DOB","Gender"]
-    filteredArray = []
-    for value in bdayArray:
-        for key in mandatoryKeys:
-            if key in value.keys():
-                filteredArray.append(value)
-            else:
-                LogPrint("Improperly formatted data in database" , value)
-    return filteredArray
 
 async def LogPrint(ActionToBeLogged):
     today = datetime.now(pytz.timezone(timezone))
@@ -155,7 +162,6 @@ async def TodayBday():
         # print(bdays)
         for key, value in bdays.items():
             temparray.append(value)
-        temparray = checkAndFilter(temparray)
         temparray = sorted(temparray,
                            key=lambda x:
                            (int(x["DOB"][3:5]), int(x["DOB"][:2])))
