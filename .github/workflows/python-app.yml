@@ -11,7 +11,7 @@ on:
     types:
       - completed
   repository_dispatch:
-      types: [aws_event]
+      types: [birthday-update]
 jobs:
   personal-channel:
     timeout-minutes: 10
