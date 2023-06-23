@@ -7,8 +7,8 @@ from Helpers.TimeHelper import today_in_tz
 
 def get_monthly_birthday_embed(birthday):
     today = today_in_tz()
-    bdayDate = datetime.strptime(birthday.date, "%d-%m-%Y").date()
-    age = BirthdayService.calculate_age(bdayDate)
+    bday_date = datetime.strptime(birthday.date, "%d-%m-%Y").date()
+    age = BirthdayService.calculate_age(bday_date)
     embed = None
     color = EmbedGenerator.get_embed_color()
     embed = discord.Embed(color=color)
@@ -27,10 +27,10 @@ def get_birthday_notification_embed(birthday):
     bday_date = datetime.strptime(birthday.date, "%d-%m-%Y").date()
     age = BirthdayService.calculate_age(bday_date)
     color = EmbedGenerator.get_embed_color()
-    ageString = BirthdayService.get_age_string(age)
+    age_string = BirthdayService.get_age_string(age)
     gender_string = " on her " if birthday.gender == "F" else " on his "
     embed = discord.Embed(title="Wish {}{}{}{} Birthday🎂".format(
-        birthday.name, gender_string, age, ageString), color=color)
+        birthday.name, gender_string, age, age_string), color=color)
     embed.add_field(name="Name", value="{}".format(birthday.name), inline=False)
     embed.add_field(name="Date of Birth", value="{}".format(birthday.date))
     embed.add_field(name="Age",
@@ -40,6 +40,7 @@ def get_birthday_notification_embed(birthday):
         today.strftime(" %m/%d/%Y, %H:%M:%S"), TIMEZONE))
     embed.set_thumbnail(
         url=BIRTHDAY_MESSAGE_THUMBNAIL)
+    return embed
 
 
 class EmbedGenerator:

@@ -13,72 +13,15 @@ on:
   repository_dispatch:
       types: [birthday-update]
 jobs:
-  personal-channel:
-    timeout-minutes: 10
-    env:
-      DAILY_SENT_FILE_NAME: "daily-private.json"
-      MONTHLY_SENT_FILE_NAME: "montly-private.json"
-      BOT_TOKEN: "ODA2NTc5NzU3Njg0MjI4MTk3.GzJkrI._pjMNrz3wdEDQN3ao8RZFQynTZx0aMNf9EpkUE"
-      CERTIFICATE_PATH: "private-certificate.json"
-      DATABASE_URL: "https://birthday-reminder-bb6f8-default-rtdb.europe-west1.firebasedatabase.app/"
-      STORAGE_BUCKET: "gs://birthday-reminder-bb6f8.appspot.com"
-      DB_REFERENCE: "birthday-reminder-bb6f8-default-rtdb"
-      LOG_CHANNEL_ID: "995068187978764478"
-      TARGET_CHANNEL: "958460165533859900"
-      SERVER_ID: "806579403990499369"
-    runs-on : windows-latest
+  trigger-bday-bot:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3.0.0
-      - name: Running the program
-        run: ".\\main.exe"
-
-  # You may pin to the exact commit or the version.
-  # uses: reloc8/action-push-local-changes@db6ff4a3eac620530c970af02229a260240aa8aa
-      - name : chnaged Readme.md
-        run : |
-          $FileName = "Readme.md"
-          if (Test-Path $FileName) {
-            Remove-Item $FileName
-          }
-          "Last Run at ``" + $(get-date) + "`` UTC" > Readme.md
-      - name: action-push-local-changes to Master
-        uses: reloc8/action-push-local-changes@1.0.0
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          commit-message: Daily_messgaes.json changed
-  general-channel:
-      needs: personal-channel
-      timeout-minutes: 10
-      env:
-        DAILY_SENT_FILE_NAME: "daily-general.json"
-        MONTHLY_SENT_FILE_NAME: "montly-general.json"
-        BOT_TOKEN: "ODA2NTc5NzU3Njg0MjI4MTk3.GzJkrI._pjMNrz3wdEDQN3ao8RZFQynTZx0aMNf9EpkUE"
-        CERTIFICATE_PATH: "general-certificate.json"
-        DATABASE_URL: "https://fir-authsuhrut.firebaseio.com"
-        STORAGE_BUCKET: "firebaseauthsuhrut.appspot.com"
-        DB_REFERENCE: "fir-authsuhrut"
-        LOG_CHANNEL_ID: "995068225303887952"
-        TARGET_CHANNEL: "958622808294961152"
-        SERVER_ID: "831513173361819718"
-        #Testing_channel_id=831911965643112489
-        #Main Channel id=831833834671702086
-      runs-on : windows-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3.0.0
-        - name: Running the program
-          run: ".\\main.exe"
-
-    # You may pin to the exact commit or the version.
-    # uses: reloc8/action-push-local-changes@db6ff4a3eac620530c970af02229a260240aa8aa
-        - name : chnaged Readme.md
-          run : |
-            $FileName = "Readme.md"
-            if (Test-Path $FileName) {
-              Remove-Item $FileName
-            }
-            "Last Run at ``" + $(get-date) + "`` UTC" > Readme.md
-        - name: action-push-local-changes to Master
-          uses: reloc8/action-push-local-changes@1.0.0
-          with:
-            commit-message: Daily_messgaes.json changed
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - name: Download required dependencies
+        run: pip install -r requirements.txt
+      - name: Run the program
+        run: python main.py

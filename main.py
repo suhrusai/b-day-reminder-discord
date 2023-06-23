@@ -14,10 +14,23 @@ BirthdayService()
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
     if today_in_tz().day == 1 and True:
-        await DiscordService.send_birthday_notifications("monthly")
-        await DiscordService.delete_recent_notifications("monthly")
-    await DiscordService.send_birthday_notifications("daily")
-    await DiscordService.delete_recent_notifications("daily")
+        try:
+            await DiscordService.delete_recent_notifications("monthly")
+        except Exception as e:
+            print(e)
+        try:
+            await DiscordService.send_birthday_notifications("monthly")
+        except Exception as e:
+            print(e)
+    try:
+        await DiscordService.delete_recent_notifications("daily")
+    except Exception as e:
+        print(e)
+    try:
+        await DiscordService.send_birthday_notifications("daily")
+    except Exception as e:
+        print(e)
+    client.close()
     exit()
 
 
