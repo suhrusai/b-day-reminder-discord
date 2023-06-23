@@ -35,7 +35,6 @@ class BirthdayService:
 
     def today_bdays(self):
         regex = today_in_tz().strftime('%d-%m') + '-\d{4}'
-        regex = '20-09-2000'
         return list(filter(lambda x: re.findall(regex, x.date), self.birthdays))
 
     def month_bdays(self):
