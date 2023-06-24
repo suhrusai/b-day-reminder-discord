@@ -1,8 +1,8 @@
 from FirebaseConnect import FirebaseConnect
 
 
-class Notification():
-    def __init__(self,serverRunRecords,notificationType):
-        self.serverRunRecords = serverRunRecords
+class Notification:
+    def __init__(self, server_run_records, notification_type):
+        self.serverRunRecords = server_run_records
         self.createdAt = None
-        self.notificationType = notificationType
+        self.notificationType = notification_type

@@ -12,13 +12,13 @@ MONTH_LABELS = [
     'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2FSlide11.JPG?alt=media&token=86c35f54-ea08-4ffc-9cc0-ebfdb2d069ee',
     'https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2FSlide12.JPG?alt=media&token=46591047-83ec-4329-a364-40e1699bb366',
 ]
-BIRTHDAY_WISH_PIC= "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
-BIRTHDAY_MESSSAGE_THUMBNAIL = "https://jooinn.com/images/birthday-cake-clipart.jpg"
+BIRTHDAY_WISH_PIC = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
+BIRTHDAY_MESSAGE_THUMBNAIL = "https://jooinn.com/images/birthday-cake-clipart.jpg"
 TIMEZONE = "Antarctica/Vostok"
 CERTIFICATE_PATH = "birthday-reminder-pro-firebase-adminsdk-d8w6i-74357576e9.json"
 BIRTHDAYS_COLLECTION_NAME = "birthdays"
 SERVERS_COLLECTION_NAME = "servers"
-SERVER_RUN_RECORD_COLLECTION_NAME="serverRunRecord"
+SERVER_RUN_RECORD_COLLECTION_NAME = "serverRunRecord"
 NOTIFICATION_COLLECTION_NAME = "notifications"
 EMBED_COLORS = [0xff31ba, 0xb7f205, 0x00f2d6, 0xf1c40f]
 TOKEN = "ODA2NTc5NzU3Njg0MjI4MTk3.GzJkrI._pjMNrz3wdEDQN3ao8RZFQynTZx0aMNf9EpkUE"

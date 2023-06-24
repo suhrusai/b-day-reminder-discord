@@ -10,14 +10,14 @@ from Models.Server import Server
 def generateServerObject(document):
     documentDict = document.to_dict()
     return Server(
-        channelId = documentDict['channelId'],
-        channelName= documentDict['channelName'],
+        channel_id= documentDict['channelId'],
+        channel_name= documentDict['channelName'],
         name = documentDict['name'],
-        serverId = documentDict['serverId'],
-        id = document.id
+        server_id= documentDict['serverId'],
+        firebase_id= document.id
     )
 class ServerService():
-    db = FirebaseConnect().getDbReference()
+    db = FirebaseConnect().get_db_reference()
     def getServerById(self,id):
         docRef = self.db.collection(SERVERS_COLLECTION_NAME).document(id)
         document = docRef.get()

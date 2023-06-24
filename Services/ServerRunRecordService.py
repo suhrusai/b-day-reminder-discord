@@ -5,13 +5,13 @@ from firebase_admin import firestore
 def generateServerRunRecord(document):
     documentDict = document.to_dict()
     return ServerRunRecord(
-        serverId = documentDict['serverId'],
-        messageIds = documentDict['messageIds'],
-        birthdayIds = documentDict['birthdayIds']
+        server_id= documentDict['serverId'],
+        message_ids= documentDict['messageIds'],
+        birthday_ids= documentDict['birthdayIds']
     )
 class ServerRunRecordService():
     def __init__(self):
-        self.db = FirebaseConnect().getDbReference()
+        self.db = FirebaseConnect().get_db_reference()
     def getServerRunRecordById(self,id):
         docRef = self.db.collection(SERVER_RUN_RECORD_COLLECTION_NAME).document(id)
         document = docRef.get()

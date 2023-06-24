@@ -1,8 +1,8 @@
 class Server():
-    def __init__(self,channelId,channelName,name,serverId,id):
-        self.channelId = channelId
-        self.channelName= channelName
+    def __init__(self, channel_id, channel_name, name, server_id, firebase_id):
+        self.channelId = channel_id
+        self.channelName = channel_name
         self.name = name
-        self.serverId = serverId
-        self.id = id
+        self.serverId = server_id
+        self.id = firebase_id
     
