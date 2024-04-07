@@ -20,7 +20,7 @@ jobs:
         env:
           CERTIFICATE_NAME : ${{secrets.CERTIFICATE_NAME}}
           CERTIFICATE_INFO : ${{secrets.CERTIFICATE_INFO}}
-        run: cat $CERTIFICATE_INFO >> $CERTIFICATE_NAME
+        run: cat "$CERTIFICATE_INFO" >> $CERTIFICATE_NAME
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
