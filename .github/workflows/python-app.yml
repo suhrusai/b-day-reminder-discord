@@ -25,6 +25,7 @@ jobs:
           ls
           printf "$CERTIFICATE_INFO" >> certificate.json
           ls
+          cat certificate.json
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
