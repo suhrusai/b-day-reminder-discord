@@ -16,6 +16,7 @@ jobs:
   trigger-bday-bot:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: generate certificate file from secrets
         env:
           CERTIFICATE_INFO : ${{ secrets.CERTIFICATE_INFO }}
@@ -24,7 +25,6 @@ jobs:
           ls
           printf "$CERTIFICATE_INFO" >> certificate.json
           ls
-      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
