@@ -23,7 +23,7 @@ jobs:
         run: |
           echo $CERTIFICATE_NAME
           echo $CERTIFICATE_INFO
-          cat "$CERTIFICATE_INFO" >> "$CERTIFICATE_NAME"
+          echo "$CERTIFICATE_INFO" >> "$CERTIFICATE_NAME"
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
