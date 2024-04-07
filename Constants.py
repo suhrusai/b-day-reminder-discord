@@ -15,10 +15,9 @@ MONTH_LABELS = [
 BIRTHDAY_WISH_PIC = "https://firebasestorage.googleapis.com/v0/b/firebaseauthsuhrut.appspot.com/o/Month_labels%2Fbday_wish.png?alt=media&token=a056e178-d4eb-4172-9de1-403dc758e17a"
 BIRTHDAY_MESSAGE_THUMBNAIL = "https://jooinn.com/images/birthday-cake-clipart.jpg"
 TIMEZONE = "Antarctica/Vostok"
-CERTIFICATE_PATH = "birthday-reminder-pro-firebase-adminsdk-d8w6i-74357576e9.json"
+CERTIFICATE_PATH = "certificate.json"
 BIRTHDAYS_COLLECTION_NAME = "birthdays"
 SERVERS_COLLECTION_NAME = "servers"
 SERVER_RUN_RECORD_COLLECTION_NAME = "serverRunRecord"
 NOTIFICATION_COLLECTION_NAME = "notifications"
 EMBED_COLORS = [0xff31ba, 0xb7f205, 0x00f2d6, 0xf1c40f]
-TOKEN = "ODA2NTc5NzU3Njg0MjI4MTk3.GzJkrI._pjMNrz3wdEDQN3ao8RZFQynTZx0aMNf9EpkUE"
