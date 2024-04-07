@@ -21,7 +21,9 @@ jobs:
           CERTIFICATE_INFO : ${{ secrets.CERTIFICATE_INFO }}
         run: |
           echo $CERTIFICATE_INFO
+          ls
           printf "$CERTIFICATE_INFO" >> certificate.json
+          ls
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
