@@ -18,12 +18,11 @@ jobs:
     steps:
       - name: generate certificate file from secrets
         env:
-          CERTIFICATE_NAME : ${{ secrets.CERTIFICATE_NAME }}
           CERTIFICATE_INFO : ${{ secrets.CERTIFICATE_INFO }}
         run: |
           echo $CERTIFICATE_NAME
           echo $CERTIFICATE_INFO
-          echo "$CERTIFICATE_INFO" >> "$CERTIFICATE_NAME"
+          echo "$CERTIFICATE_INFO" >> certificate.json
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
