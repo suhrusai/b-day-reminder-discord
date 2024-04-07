@@ -15,17 +15,15 @@ on:
 jobs:
   trigger-bday-bot:
     runs-on: ubuntu-latest
+    env:
+      DISCORD_TOKEN : ${{secrets.DISCORD_TOKEN}}
     steps:
       - uses: actions/checkout@v4
-      - name: generate certificate file from secrets
-        env:
-          CERTIFICATE_INFO : ${{ secrets.CERTIFICATE_INFO }}
-        run: |
-          echo $CERTIFICATE_INFO
-          ls
-          printf "$CERTIFICATE_INFO" >> certificate.json
-          ls
-          cat certificate.json
+      - name: generate certificate file from secrets              
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "certificate.json"
+          json: ${{ secrets.CERTIFICATE_INFO }}
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
