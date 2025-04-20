@@ -31,11 +31,25 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run the program
         run: python main.py
-      - name: Create an empty commit
+      - name: Create an empty commit and force push
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git checkout -b keep-alive
-          git pull
-          git commit --allow-empty -m "Keep-alive commit"
-          git push origin keep-alive
+          
+          # Check out or create the branch
+          if git rev-parse --verify keep-alive; then
+            git checkout keep-alive
+          else
+            git checkout -b keep-alive
+          fi
+          
+          # Pull the latest changes (optional, only if you want to avoid conflicts)
+          git pull origin keep-alive --rebase || echo "No remote branch exists yet"
+          
+          # Create the empty commit
+          git commit --allow-empty -m "Keep-alive commit" || echo "Skipping empty commit due to conflicts"
+          
+          # Force push the changes to the remote branch
+          git push origin keep-alive --force
+
+
