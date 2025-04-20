@@ -36,18 +36,19 @@ jobs:
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           
-          # Switch to the keep-alive branch or create it if it doesn't exist
+          # Check out or create the branch
           if git rev-parse --verify keep-alive; then
             git checkout keep-alive
           else
             git checkout -b keep-alive
           fi
           
-          # Pull latest changes from the remote branch
+          # Pull the latest changes and resolve any conflicts
           git pull origin keep-alive --rebase || echo "No remote branch exists yet"
           
-          # Create an empty commit
-          git commit --allow-empty -m "Keep-alive commit"
+          # Create the empty commit
+          git commit --allow-empty -m "Keep-alive commit" || echo "Skipping empty commit due to conflicts"
           
-          # Push the changes to the remote keep-alive branch
-          git push origin keep-alive
+          # Push the changes to the remote branch
+          git push origin keep-alive || echo "Push failed due to unresolved conflicts"
+
