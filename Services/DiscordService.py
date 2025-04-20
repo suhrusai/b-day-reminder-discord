@@ -55,7 +55,8 @@ class DiscordService:
                     embed = get_monthly_birthday_embed(birthday)
                 else:
                     embed = get_birthday_notification_embed(birthday)
-                channel_id = ServerCache().get(serverId).channelId
+                serverCacheItem = ServerCache()
+                channel_id = serverCacheItem.get(serverId).channelId
                 message_channel = None
                 while message_channel is None:
                     message_channel = DiscordService.client.get_channel(int(channel_id))
