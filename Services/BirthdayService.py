@@ -34,11 +34,11 @@ class BirthdayService:
             BirthdayService.birthdays = download_all_birthdays()
 
     def today_bdays(self):
-        regex = today_in_tz().strftime('%d-%m') + '-\d{4}'
+        regex = today_in_tz().strftime(r'%d-%m') + r'-\d{4}'
         return list(filter(lambda x: re.findall(regex, x.date), self.birthdays))
 
     def month_bdays(self):
-        regex = '\d{2}-' + today_in_tz().strftime('%m') + '-\d{4}'
+        regex = r'\d{2}-' + today_in_tz().strftime('%m') + r'-\d{4}'
         return list(filter(lambda x: re.findall(regex, x.date), self.birthdays))
 
     @staticmethod
