@@ -1,5 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-action
+# This workflow will install Python dependencies, run tests, and create an empty commit in a branch called keep-alive
 name: Birthday Update
 
 on:
@@ -16,7 +15,7 @@ jobs:
   trigger-bday-bot:
     runs-on: ubuntu-latest
     env:
-      DISCORD_TOKEN : ${{secrets.DISCORD_TOKEN}}
+      DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN}}
     steps:
       - uses: actions/checkout@v4
       - name: generate certificate file from secrets              
@@ -32,3 +31,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run the program
         run: python main.py
+      - name: Create an empty commit
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git checkout -b keep-alive
+          git commit --allow-empty -m "Keep-alive commit"
+          git push origin keep-alive
