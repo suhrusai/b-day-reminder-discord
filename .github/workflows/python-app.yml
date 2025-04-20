@@ -36,6 +36,6 @@ jobs:
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git checkout -b keep-alive
-          git pull
+          git pull keep-alive
           git commit --allow-empty -m "Keep-alive commit"
           git push origin keep-alive
